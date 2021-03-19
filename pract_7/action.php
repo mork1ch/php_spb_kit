@@ -1,3 +1,15 @@
+<?php
+
+	/*
+		Практическая работа №7
+		Вариант 5:
+		Реализовать обработку данных формы, при этом обязательные поля под номерами: 1, 2, 3, 9, 10, 11. (0, 1, 2, 8, 9 в массиве!)
+		При этом пункты 9 и 10 должны быть корректного формата.
+		При этом 11 пункт может быть только изображением jpg не превышающий разрешение изображения 1000x900.
+		Если условия не соблюдены - выводить сообщение об ошибке.
+		Если все верно - выводить данные о пользователе в читабельном виде.
+	*/
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -12,16 +24,16 @@
 	// $err = [];
 	// $data = [];
 	
-	if(isset($_POST['lname']))  $data[0]  = ($_POST['lname']);
-	if(isset($_POST['fname'])) 	$data[1]  = ($_POST['fname']);
-	if(isset($_POST['tname'])) 	$data[2]  = ($_POST['tname']);
-	if(isset($_POST['phone'])) 	$data[3]  = ($_POST['phone']);
-	if(isset($_POST['email'])) 	$data[4]  = ($_POST['email']);
+	if(isset($_POST['secondName'])) $data[0]  = ($_POST['secondName']);
+	if(isset($_POST['firstName'])) 	$data[1]  = ($_POST['firstName']);
+	if(isset($_POST['thirdName'])) 	$data[2]  = ($_POST['thirdName']);
+	if(isset($_POST['phone'])) 		$data[8]  = ($_POST['phone']);
+	if(isset($_POST['email'])) 		$data[9]  = ($_POST['email']);
 
 
 	@$avatarCheck = getimagesize($_FILES["avatar"]["tmp_name"]);
 	$fileNames = $_FILES["file"]["name"];
-	$fileNames = implode(', ', $fileNames);
+	// $fileNames = implode(', ', $fileNames);
 
 
 	if (empty($data[0]) && $data[0] = ' ') 
@@ -39,21 +51,21 @@
 	elseif (stristr($data[2], ' ')) 
 		$err[] = "В отчестве присутствует пробел.";
 
-	if (empty($data[3]) && $data[3] = ' ')
+	if (empty($data[8]) && $data[8] = ' ')
 		$err[] = "Пустой номер телефона.";
-	elseif (stristr($data[3], ' ')) 
+	elseif (stristr($data[8], ' ')) 
 		$err[] = "В номере телефона присутствует пробел.";
-	elseif (strlen($data[3]) != 12 ||  (substr($data[3], 0, 2) != "8" and
-										substr($data[3], 0, 2) != "7"))
-		$err[] = "Неверная запись номера телефона. Должен содержать 12 символов, начало с 7 или 8";
+	elseif (strlen($data[8]) != 12 ||  (substr($data[8], 0, 2) != "+8" and
+										substr($data[8], 0, 2) != "+7"))
+		$err[] = "Неверная запись номера телефона. Должен содержать 12 символов, начало с +7, +8";
 	
-	if (empty($data[4]) && $data[4] = ' ')
+	if (empty($data[9]) && $data[9] = ' ')
 		$err[] = "Пустой E-mail.";
-	elseif (stristr($data[4], ' ')) 
+	elseif (stristr($data[9], ' ')) 
 		$err[] = "В E-mail присутствует пробел.";
-	elseif (is_numeric(strripos($data[4], '@')) != true || (substr($data[4], - 4, 4) != ".com" and 
-															substr($data[4], - 3, 3) != ".ru" and 
-															substr($data[4], - 3, 3) != ".ua"))
+	elseif (is_numeric(strripos($data[9], '@')) != true || (substr($data[9], - 4, 4) != ".com" and 
+															substr($data[9], - 3, 3) != ".ru" and 
+															substr($data[9], - 3, 3) != ".ua"))
 		$err[] = "Неверная запись E-mail. Должнен содержать @, разрешенные почты - .com, .ru, .ua";
 
 	if (empty($_FILES["avatar"])) 
@@ -78,39 +90,22 @@
 		$avatarName = $_FILES["avatar"]["name"];
 		move_uploaded_file($avatar_tmp_name, "avatar/$avatarName");
 
-		foreach ($_FILES ["file"]["error"] as $key => $error) {
-			$files_tmp_name = $_FILES["file"]["tmp_name"][$key];
-			$filesName = $_FILES["file"]["name"][$key];
-			move_uploaded_file($files_tmp_name, "files/$filesName");
-		}
 		
+		if (empty($data[10])) $active = "---";
+		else $active = implode(', ', $data[10]);
 		
-		if (empty($data[3])) $data[3] = "---";
-		if (empty($data[4])) $data[4] = "---";
-		
+		if (empty($data[11])) $data[11] = "---";
 		
 		echo "ФИО: $data[0] $data[1] $data[2]</br>";
-		echo "Телефон: $data[3]</br>";
-		echo "E-mail: $data[4]</br>";
-		echo "Загруженные файлы: $fileNames";
+		echo "Телефон: $data[8]</br>";
+		echo "E-mail: $data[9]</br>";
 	}
 	
-			//запись
-		
-			$fp = fopen ('data/profiles.txt', 'a+');
-			foreach ($data as $key => $values) {
-				fwrite ($fp, "$data[$key] ");
-			}
-			fwrite ($fp, PHP_EOL);
-			fclose ($fp);
-			echo "Данные записаны!";
-		}
-		
-		else {
-			echo "Запись данных не удалась. Причина:</br>";
-			foreach ($err as $value) echo "$value</br>";
-		}
-		?>
+	else {
+		echo "Запись данных не удалась. Причина:</br>";
+		foreach ($err as $value) echo "$value</br>";
+	}
+			?>
 			</li></ul>
 		</div>
 	</body>
