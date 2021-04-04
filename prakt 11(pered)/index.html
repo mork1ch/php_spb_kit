@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>prakt 8</title>
+</head>
+<body>
+
+    <form action="action.php" method="post">
+
+        <div class="info_pers">
+            <input type="text" required pattern="^[a-zA-Zа-яА-Я]+$" name="familiy"   placeholder="Фамилия">
+            <input type="text" required pattern="^[a-zA-Zа-яА-Я]+$" name="name"      placeholder="Имя">
+            <input type="text" required pattern="^[a-zA-Zа-яА-Я]+$" name="otch"      placeholder="Отчество">
+        </div>
+
+        <div class="birthday">
+            <span>День рождения</span>
+            <input type="date" name="birthday" placeholder="">
+        </div>
+
+        <div class="pol">
+            <p>Пол</p>
+            <ul>
+                <input type="radio" required name="pol" value="мужчина"><p>муж</p>
+                <input type="radio" required name="pol" value="женщина"><p>жен</p>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="group">
+            <p>Группа</p>
+            <ul>
+                <input type="radio" required name="group" value="81"><p>81</p>
+                <input type="radio" required name="group" value="82"><p>82</p>
+                <input type="radio" required name="group" value="83"><p>83</p>
+            </ul>
+        </div>
+
+        <div class="country">
+            <p>Страна</p>
+            <select name="country">
+                <option name="country" value="Россия">Россия</option>
+                <option name="country" value="Англия">Англия</option>
+            </select>
+        </div>
+
+        <div class="info_sec_per">
+            <input type="text" name="adress"    placeholder="Адресс">
+            <p>+7<input type="text" name="tel"  placeholder="Телефон" style="width: 150px;display: inline-block;"></p>
+            <input type="text" name="email"     placeholder="Мыло">
+        </div>
+
+        <div class="hobbi">
+            <p>Список увлечений</p>
+            <ul>
+                <p><input type="checkbox" name="hobbi[0]"  value="Игры">Игры</p>
+                <p><input type="checkbox" name="hobbi[1]"  value="Программирование">Программирование</p>
+                <p><input type="checkbox" name="hobbi[2]"  value="Готовка">Готовка</p>
+            </ul>
+        </div>
+
+        <div class="dop_info">
+            <p>Дополнительная информация</p>
+            <input type="text" name="dop_inf" placeholder="Дополнительная информация">
+        </div>
+
+        <button type="submit" >Зарегистрироваться</button>
+
+    </form>
+
+</body>
+</html>
