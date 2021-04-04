@@ -1,0 +1,40 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.clearfix{
+    clear: both;
+}
+input{
+    display: block;
+    width: 230px;
+    height: 15px;
+    margin-bottom: 5px;
+}
+form{
+    width: 230px;
+    margin: 0 auto;
+}
+div{
+    margin: 25px 0;
+}
+.pol, .group{text-align: center;}
+.hobbi{
+    text-align: left;
+}
+.pol input, .group input, .hobbi input{
+    width: 15px;
+    display: inline;
+}
+.pol p, .group p{
+    display: inline;
+    margin-bottom: 15px;
+    margin-right: 15px;
+}
+.country{
+    text-align: center;
+}
+button{
+    width: 230px;
+    height: 50px;
+}
