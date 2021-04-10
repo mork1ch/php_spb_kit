@@ -89,6 +89,11 @@
                 $data[hobbi] = 'Не указанно';
             }
 
+            $data[dop_inf] = ($_POST['dop_inf']);
+            if (empty($_POST[dop_inf])){
+                $data[dop_inf] = 'Не указанно';
+            }
+
             if(empty($osibki)){
                 echo "<h1>Проверьте форму</h1>";
                 echo "<p>Все правильно ?</p>";

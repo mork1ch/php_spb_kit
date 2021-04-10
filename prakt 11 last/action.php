@@ -118,7 +118,7 @@
                     echo "Адрес: $data[adress]</br>";
                     echo "Телефон: $data[tel]</br>";
                     echo "E-mail: $data[email]</br>";
-                    echo "Увлечения: $data[hobbi]</br>";
+                    echo "Увлечения: $hobbi[]</br>";
                     echo "Дополнительно: $data[dop_inf]</br>";
 
                     echo "</br>";
