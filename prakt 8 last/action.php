@@ -15,8 +15,34 @@
             //$osibki = [];
 
             $data[familiy] = ($_POST['familiy']);
+
+            if(empty($data[familiy])){
+                $osibki[] = "Не указана фамилия";
+            }elseif(!preg_match("/[A-Za-zА-Яа-я]*$/", $data[familiy])){
+                $osibki[] = "В фамилии присутствуют цифры";
+            }elseif(!preg_match("/^[A-Za-zА-Яа-я]*\S*$/", $data[familiy])){
+                $osibki[] = "В фамилии присутствует пробел";
+            }
+
             $data[name] = ($_POST['name']);
+
+            if(empty($data[name])){
+                $osibki[] = "Не указано имя";
+            }elseif(!preg_match("/[A-Za-zА-Яа-я]*$/", $data[name])){
+                $osibki[] = "В имени присутствуют цифры";
+            }elseif(!preg_match("/^[A-Za-zА-Яа-я]*\S*$/", $data[name])){
+                $osibki[] = "В имени присутствует пробел";
+            }
+
             $data[otch] = ($_POST['otch']);
+
+            if(empty($data[otch])){
+                $osibki[] = "Не указано отчество";
+            }elseif(!preg_match("/[A-Za-zА-Яа-я]*$/", $data[otch])){
+                $osibki[] = "В отчестве присутствуют цифры";
+            }elseif(!preg_match("/^[A-Za-zА-Яа-я]*\S*$/", $data[otch])){
+                $osibki[] = "В отчестве присутствует пробел";
+            }
 
             $data[birthday] = ($_POST['birthday']);
                 if(empty($data[birthday])){
@@ -35,27 +61,33 @@
             $data[adress] = ($_POST['adress']);
             if(empty($data[adress])){
                 $data[adress] = "не указанно";
+            }elseif(preg_match("/^[0-1A-Za-zА-Яа-я]*\S*$/", $data[adress])){
+                $data[adress] = "не указанно)";
             }
 
             $data[tel] = "7".($_POST['tel']);
             if(empty($data[tel])){
                 $osibki[] = "Номер не указан";
-            }elseif(!preg_match("/^[0-9]{10,10}$/", $data[tel])) $osibki[] = "Телефон задан в неверном формате(напишите 10цифр после '+7')";
+            }elseif(!preg_match("/^[0-9][0-9]{10}$/", $data[tel])){
+                $osibki[] = "Телефон задан в неверном формате(напишите 10цифр после '+7')";
+            }
 
             $data[email] = ($_POST['email']);
             if(empty($data[email])){
                 $osibki[] = "email не указан";
-            }elseif(!preg_match("/[0-9A-Za-z]*[@gmail.com|@mail.ru]$/", $data[email])) $osibki[] = "Мейл введен неверно";
+            }elseif(!preg_match("/[0-9A-Za-z]*[@gmail.com|@mail.ru]$/", $data[email])){
+                $osibki[] = "Мейл введен неверно";
+            }elseif(!preg_match("/^[0-1A-Za-zА-Яа-я]*\S*$/", $data[email])){
+                $osibki[] = "Мейл введен пробел";
+            }
 
             $data[hobbi] = ($_POST['hobbi']);
-            
-            if (empty($date[hobbi])){
+            if (!empty($_POST['hobbi'])){
                 $hobbi = implode(',', $data[hobbi]);
-                $data[hobbi] = $hobbi;}
-            
-            $data[dop_inf] = ($_POST['dop_inf']);
-
-
+                $data[hobbi] = $hobbi;
+            }else{
+                $data[hobbi] = 'Не указанно';
+            }
 
             if(empty($osibki)){
                 echo "<h1>Проверьте форму</h1>";

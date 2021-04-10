@@ -17,29 +17,46 @@
             //$osibki = [];
 
             function __construct() {
-                $this->data[familiy] = ($_POST['familiy']);
-                $this->data[name] = ($_POST['name']);
-                $this->data[otch] = ($_POST['otch']);
-                $this->data[birthday] = ($_POST['birthday']);
-                $this->data[pol] = ($_POST['pol']);
-                $this->data[group] = ($_POST['group']);
-                $this->data[country] = ($_POST['country']);
-                $this->data[adress] = ($_POST['adress']);
-                $this->data[tel] = "7".($_POST['tel']);
-                $this->data[email] = ($_POST['email']);
-                $this->data[hobbi] = ($_POST['hobbi']);
-                $this->data[dop_inf] = ($_POST['dop_inf']);
+                $this->data[familiy]    = ($_POST['familiy']);
+                $this->data[name]       = ($_POST['name']);
+                $this->data[otch]       = ($_POST['otch']);
+                $this->data[birthday]   = ($_POST['birthday']);
+                $this->data[pol]        = ($_POST['pol']);
+                $this->data[group]      = ($_POST['group']);
+                $this->data[country]    = ($_POST['country']);
+                $this->data[adress]     = ($_POST['adress']);
+                $this->data[tel]        = "+7".($_POST['tel']);
+                $this->data[email]      = ($_POST['email']);
+                $this->data[hobbi]      = ($_POST['hobbi']);
+                $this->data[dop_inf]    = ($_POST['dop_inf']);
             }
 
             function Proverka(){
                 $data = $this->data;
 
-                // Проверка ФИО происходит в index.html . Но если нужно я могу прописать похожие регулярные выражения как я прописал в email и телефоне. 
-                // А также чтобы избавиться от всех пробелов в ФИО нужно просто дать разрешение - /S(любой непробельный символ)
-                
-                //familiy
-                //name
-                //otch
+                if(empty($data[familiy])){
+                    $osibki[] = "Не указана фамилия";
+                }elseif(!preg_match("/[A-Za-zА-Яа-я]*$/", $data[familiy])){
+                    $osibki[] = "В фамилии присутствуют цифры";
+                }elseif(!preg_match("/^[A-Za-zА-Яа-я]*\S*$/", $data[familiy])){
+                    $osibki[] = "В фамилии присутствует пробел";
+                }
+
+                if(empty($data[name])){
+                    $osibki[] = "Не указано имя";
+                }elseif(!preg_match("/[A-Za-zА-Яа-я]*$/", $data[name])){
+                    $osibki[] = "В имени присутствуют цифры";
+                }elseif(!preg_match("/^[A-Za-zА-Яа-я]*\S*$/", $data[name])){
+                    $osibki[] = "В имени присутствует пробел";
+                }
+
+                if(empty($data[otch])){
+                    $osibki[] = "Не указано отчество";
+                }elseif(!preg_match("/[A-Za-zА-Яа-я]*$/", $data[otch])){
+                    $osibki[] = "В отчестве присутствуют цифры";
+                }elseif(!preg_match("/^[A-Za-zА-Яа-я]*\S*$/", $data[otch])){
+                    $osibki[] = "В отчестве присутствует пробел";
+                }
 
                 if(empty($data[pol])){
                     $data[pol] = "не указанно";
@@ -52,34 +69,42 @@
                 if(empty($data[country])){
                     $data[country] = "не указанно";
                 }
+
                 if(empty($data[adress])){
                     $data[adress] = "не указанно";
+                }elseif(preg_match("/^[0-1A-Za-zА-Яа-я]*\S*$/", $data[adress])){
+                    $data[adress] = "не указанно";
                 }
-                if (empty($hobbi)){
-                    $data[hobbi] = "не указанно";
-                }
-
+                
+                
 
                 if(empty($data[tel])){
                     $osibki[] = "Номер не указан";
-                }elseif(!preg_match("/[0-9]{10}$/", $data[tel])) $osibki[] = "Телефон задан в неверном формате(напишите 10цифр после '+7')";
+                }elseif(!preg_match("/^[0-9][0-9]{10}$/", $data[tel])){
+                    $osibki[] = "Телефон задан в неверном формате(напишите 10цифр после '+7')";
+                }
 
                 if(empty($data[email])){
                     $osibki[] = "email не указан";
-                }elseif(!preg_match("/[0-9A-Za-z]*[@gmail.com|@mail.ru]$/", $data[email])) $osibki[] = "Мейл введен неверно";
+                }elseif(!preg_match("/[0-9A-Za-z]*[@gmail.com|@mail.ru]$/", $data[email])){
+                    $osibki[] = "Мейл введен неверно";
+                }elseif(!preg_match("/^[0-1A-Za-zА-Яа-я]*\S*$/", $data[email])){
+                    $osibki[] = "Мейл введен пробел";
+                }
                 
             }
 
             function Vivod() {
                 if(empty($osibki)){
                     $data = $this->data;
-
-                    if (!empty($data[hobbi])){
+                    
+                    if (!empty($_POST['hobbi'])){
                         $hobbi = implode(',', $data[hobbi]);
                         $data[hobbi] = $hobbi;
+                    }else{
+                        $data[hobbi] = 'Не указанно';
                     }
-                    if (empty($hobbi)) $data[hobbi] = "не указанно";
-                    
+
                     echo "<h1>Проверьте форму</h1>";
                     echo "<p>Все правильно ?</p>";
 
